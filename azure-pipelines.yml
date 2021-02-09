@@ -8,7 +8,6 @@ trigger:
 
 pool:
   vmImage: 'ubuntu-latest'
-  demands: npm
   
 steps:
   - task: Npm@0
@@ -21,14 +20,14 @@ steps:
     inputs:
       command: custom
       verbose: false
-      customCommand: 'install @angular/cli'
+      customCommand: 'npm install @angular/cli'
 
   - task: Npm@1
     displayName: 'npm build'
     inputs:
       command: custom
       verbose: false
-      customCommand: 'run build-prod'
+      customCommand: 'ng build --prod'
       
   - task: ArchiveFiles@1
     displayName: 'Archive files '
