@@ -7,16 +7,30 @@ trigger:
 - main
 
 pool:
-  vmImage: ubuntu-default
+  vmImage: 'ubuntu-latest'
 
 steps:
-- task: NodeTool@0
-  inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
+  - task: Npm@0
+    displayName: 'npm install'
+    inputs:
+      arguments: '--force'
 
-- script: |
-    npm install -g @angular/cli
-    npm install
-    ng build --prod
-  displayName: 'npm install and build'
+  - task: Npm@1
+    displayName: 'npm install angular cli'
+    inputs:
+      command: custom
+      verbose: false
+      customCommand: 'install @angular/cli'
+
+  - task: Npm@1
+    displayName: 'npm build'
+    inputs:
+      command: custom
+      verbose: false
+      customCommand: 'run build-prod'
+      
+  - task: ArchiveFiles@1
+    displayName: 'Archive files '
+    inputs:
+      rootFolder: '$(System.DefaultWorkingDirectory)/dist/TestProj' #name of your project on angular.json .defaultProject value
+      includeRootFolder: false
