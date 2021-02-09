@@ -20,17 +20,19 @@ steps:
     inputs:
       command: custom
       verbose: false
-      customCommand: 'npm install @angular/cli'
+      customCommand: 'install @angular/cli'
 
-  - task: Npm@1
+  - script: ng build --prod
     displayName: 'npm build'
-    inputs:
-      command: custom
-      verbose: false
-      customCommand: 'ng build --prod'
       
   - task: ArchiveFiles@1
     displayName: 'Archive files '
     inputs:
-      rootFolder: '$(System.DefaultWorkingDirectory)/dist/TestProj' #name of your project on angular.json .defaultProject value
+      rootFolder: '$(System.DefaultWorkingDirectory)' #name of your project on angular.json .defaultProject value
       includeRootFolder: false
+  - task: CopyFiles@2
+    displayName: 'Copy File to: $(TargetFolder)'
+    inputs:
+      SourceFolder: '$(Build.ArtifactStagingDirectory)'
+      Contents: '$(Build.BuildId).zip'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)\dist'
