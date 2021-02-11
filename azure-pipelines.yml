@@ -30,12 +30,12 @@ steps:
   - task: ArchiveFiles@1
     displayName: 'Archive files '
     inputs:
-      rootFolder: 'RahulProjects/dist/TestApp' #name of your project on angular.json .defaultProject value
+      rootFolder: 'dist/TestApp' #name of your project on angular.json .defaultProject value
       includeRootFolder: false
   - task: CopyFiles@2
     displayName: 'Copy File to: $(TargetFolder)'
     inputs:
-      SourceFolder: 'RahulProjects/dist/TestApp'
-      Contents: '*.zip'
+      SourceFolder: 'dist/TestApp'
+      Contents: '$(Build.BuildId).zip'
       TargetFolder: '$(Build.ArtifactStagingDirectory)'
   
