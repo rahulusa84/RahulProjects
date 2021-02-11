@@ -46,7 +46,7 @@ steps:
       awsCredentials: 'AWS Connection'
       regionName: 'us-east-2'
       bucketName: 'bucket84'
-      sourceFolder: '$(System.DefaultWorkingDirectory)/_rahulusa84.RahulProjects/drop'
+      sourceFolder: '$(Build.ArtifactStagingDirectory)'
       globExpressions: '**'
   - task: AWSCLI@1
     displayName: 'Cloud Front Create Invalidation' 
@@ -63,4 +63,4 @@ steps:
       azureSubscription: 'Azure subscription 1 (6c74c0b1-61b3-44e6-bada-c36d5a1eb330)'
       appType: 'webApp'
       WebAppName: 'TestAngularApp1'
-      packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+      packageForLinux: '$(Build.ArtifactStagingDirectory)/**/*.zip'
