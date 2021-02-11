@@ -56,14 +56,6 @@ steps:
       awsCommand: 'cloudfront'
       awsSubCommand: 'create-invalidation'
       awsArguments: '--distribution-id E9MGBN3LKYSKI --paths "/*"'
-  # - task: S3Upload@1
-  #   displayName: 'Agular APP CD AWS S3' 
-  #   inputs: 
-  #     awsCredentials: 'AWS Connection' 
-  #     regionName: 'us-east-2' 
-  #     bucketName: bucket84 
-  #     sourceFolder: '$(System.DefaultWorkingDirectory)/_rahulusa84.RahulProjects/drop'
-  #     createBucket: true
   - task: AzureRmWebAppDeployment@4
     displayName: 'Deploy on Azure App Service' 
     inputs:
