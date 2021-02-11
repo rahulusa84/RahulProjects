@@ -40,4 +40,35 @@ steps:
       TargetFolder: '$(Build.ArtifactStagingDirectory)'
   - task: PublishBuildArtifacts@1
     displayName: 'Publish artifacts: drop'
-  
+  - task: S3Upload@1
+    displayName: 'Agular APP CD AWS S3' 
+    inputs:
+      awsCredentials: 'AWS Connection'
+      regionName: 'us-east-2'
+      bucketName: 'bucket84'
+      sourceFolder: '$(System.DefaultWorkingDirectory)/_rahulusa84.RahulProjects/drop'
+      globExpressions: '**'
+  - task: AWSCLI@1
+    displayName: 'Cloud Front Create Invalidation' 
+    inputs:
+      awsCredentials: 'AWS Connection'
+      regionName: 'us-east-2'
+      awsCommand: 'cloudfront'
+      awsSubCommand: 'create-invalidation'
+      awsArguments: '--distribution-id E9MGBN3LKYSKI --paths "/*"'
+  # - task: S3Upload@1
+  #   displayName: 'Agular APP CD AWS S3' 
+  #   inputs: 
+  #     awsCredentials: 'AWS Connection' 
+  #     regionName: 'us-east-2' 
+  #     bucketName: bucket84 
+  #     sourceFolder: '$(System.DefaultWorkingDirectory)/_rahulusa84.RahulProjects/drop'
+  #     createBucket: true
+  - task: AzureRmWebAppDeployment@4
+    displayName: 'Deploy on Azure App Service' 
+    inputs:
+      ConnectionType: 'AzureRM'
+      azureSubscription: 'Azure subscription 1 (6c74c0b1-61b3-44e6-bada-c36d5a1eb330)'
+      appType: 'webApp'
+      WebAppName: 'TestAngularApp1'
+      packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
