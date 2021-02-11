@@ -27,14 +27,21 @@ steps:
       command: custom
       verbose: false
       customCommand: 'run build --prod'
-  - task: ArchiveFiles@1
-    displayName: 'Archive files '
+  # - task: ArchiveFiles@1
+  #   displayName: 'Archive files '
+  #   inputs:
+  #     rootFolder: '$(System.DefaultWorkingDirectory)/dist' #name of your project on angular.json .defaultProject value
+  #     includeRootFolder: false
+  # - task: CopyFiles@2
+  #   displayName: 'Copy File to: $(TargetFolder)'
+  #   inputs:
+  #     SourceFolder: '$(Build.ArtifactStagingDirectory)'
+  #     Contents: '$(Build.BuildId).zip'
+  #     TargetFolder: '$(Build.ArtifactStagingDirectory)\dist'
+  - task: AzureRmWebAppDeployment@4
     inputs:
-      rootFolder: '$(System.DefaultWorkingDirectory)/dist' #name of your project on angular.json .defaultProject value
-      includeRootFolder: false
-  - task: CopyFiles@2
-    displayName: 'Copy File to: $(TargetFolder)'
-    inputs:
-      SourceFolder: '$(Build.ArtifactStagingDirectory)'
-      Contents: '$(Build.BuildId).zip'
-      TargetFolder: '$(Build.ArtifactStagingDirectory)\dist'
+      ConnectionType: 'AzureRM'
+      azureSubscription: 'Azure subscription 1(6c74c0b1-61b3-44e6-bada-c36d5a1eb330)'
+      appType: 'webApp'
+      WebAppName: 'TestAngularApp1'
+      packageForLinux: '$(System.DefaultWorkingDirectory)/dist/*.*'
