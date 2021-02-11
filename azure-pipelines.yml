@@ -36,6 +36,6 @@ steps:
     displayName: 'Copy File to: $(TargetFolder)'
     inputs:
       SourceFolder: 'dist/TestApp'
-      Contents: '$(Build.BuildId).zip'
+      Contents: '**'
       TargetFolder: '$(Build.ArtifactStagingDirectory)'
   
