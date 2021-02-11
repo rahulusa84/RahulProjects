@@ -38,3 +38,11 @@ steps:
       SourceFolder: '$(Build.ArtifactStagingDirectory)'
       Contents: '$(Build.BuildId).zip'
       TargetFolder: '$(Build.ArtifactStagingDirectory)\dist'
+      
+  - task: AzureRmWebAppDeployment@4
+      inputs:
+        ConnectionType: 'AzureRM'
+        azureSubscription: 'Azure subscription 1(6c74c0b1-61b3-44e6-bada-c36d5a1eb330)'
+        appType: 'webApp'
+        WebAppName: 'TestAngularApp1'
+        packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
