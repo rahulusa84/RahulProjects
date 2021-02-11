@@ -38,4 +38,6 @@ steps:
       SourceFolder: 'dist/TestApp'
       Contents: '**'
       TargetFolder: '$(Build.ArtifactStagingDirectory)'
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish artifacts: drop'
   
